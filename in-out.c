@@ -45,7 +45,7 @@ char **split_words(char *input){
             input++;
         }
         char *cur = input;
-        while (isalnum(*(input))) {
+        while (isgraph(*(input))) {
             input++;
         }
         res[i] = cur;
