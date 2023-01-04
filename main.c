@@ -35,10 +35,20 @@ int process(char **words, int sz){
                 return TRUE;
             }
             cur_user = login(user_head, words[1], words[2]);
-            printf("Signup successful\n");
+            printf("Signup successful. User %s created.\n", cur_user -> name);
+            break;
+        case 1:
+            user *temp_usr;
+            temp_usr = login(user_head, words[1], words[2]);
+            if(temp_usr == NULL){
+                printf("error: unsuccessful login!\n");
+                return TRUE;
+            }
+            cur_user = temp_usr;
+            printf("Login to user %s successful.\n", cur_user -> name);
             break;
         case 8:
-            printf("Exit command successful\n");
+            printf("Exit command successful.\n");
             return FALSE;
         default:
             printf("error: Invalid command name or wrong number of arguments!\n");
