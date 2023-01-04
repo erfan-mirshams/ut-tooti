@@ -4,18 +4,18 @@
 # @file
 # @version 0.1
 
-output: in-out.o struct.o main.o
-	gcc -Wall -fsanitize=address -Wextra main.o struct.o in-out.o -o main.out
-in-out.o: in-out.c
-	gcc -c in-out.c
-struct.o: struct.c
-	gcc -c struct.c
-user.o: user.c
-	gcc -c user.c
-main.o: main.c
-	gcc -c main.c
+SRC = in-out.c user.c main.c general.c
+OBJ = ${SRC:.c=.o}
+CFLAGS = -Wall -Wextra -fsanitize=address
+
+ut-tooti: ${OBJ}
+	gcc ${CFLAGS} ${OBJ} -o $@
+
+
+.c.o:
+	gcc -c ${CFLAGS} $<
+
 clean:
-	rm *.o
-	rm main.out
+	rm -f *.o ut-tooti
 
 # end
