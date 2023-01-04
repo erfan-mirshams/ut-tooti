@@ -5,6 +5,6 @@
 #include <string.h>
 #define TRUE 1
 #define FALSE 0
-#define COMMAND_CNT 8
+#define COMMAND_CNT 9
 char *string_fill(char *b);
 #endif //GENERAL_H_

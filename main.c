@@ -16,8 +16,8 @@ void read_command(char **ch, char ***words){
 
 /* processes the command */
 int process(char **words, int sz){
-    char *command_names[] = {"signup", "login", "logout", "find_user", "post", "delete", "info", "like"};
-    int command_input_size[] = {3, 3, 1, 2, -1, 2, 1, 2};
+    char *command_names[] = {"signup", "login", "logout", "find_user", "post", "delete", "info", "like", "exit"};
+    int command_input_size[] = {3, 3, 1, 2, -1, 2, 1, 2, 1};
     int command_id = -1, i;
     for(i = 0; i < COMMAND_CNT; i++){
         /* if the command is valid */
@@ -35,8 +35,11 @@ int process(char **words, int sz){
                 return TRUE;
             }
             cur_user = login(user_head, words[1], words[2]);
-            printf("signup successful\n");
+            printf("Signup successful\n");
             break;
+        case 8:
+            printf("Exit command successful\n");
+            return FALSE;
         default:
             printf("error: Invalid command name or wrong number of arguments!\n");
             return TRUE;
@@ -50,7 +53,8 @@ int main(){
     int words_sz;
     user_head = cur_user = initialize_user_linked_list();
     user_id_cnt = 0;
-    while(TRUE){
+    int condition = TRUE; /* loop condition */
+    while(condition){
         printf("DEBUG:\n");
         read_command(&cmd, &words);
         printf("VALLA\n");
@@ -60,9 +64,10 @@ int main(){
             continue;
         }
         printf("WORDSZ: %d\n", words_sz);
-        process(words, words_sz);
+        condition = process(words, words_sz);
         free(words);
         free(cmd);
     }
+    printf("FIN\n");
     clear_user_linked_list(user_head);
 }

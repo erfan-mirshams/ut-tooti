@@ -39,16 +39,20 @@ int signup(user *head, int *id, char *name, char *pass){
 user *initialize_user_linked_list(){
     user *head = (user *)malloc(sizeof(user));
     head -> id = 0;
-    head -> name = head -> pass = "";
+    head -> name = (char *)malloc(sizeof(char));
+    head -> pass = (char *)malloc(sizeof(char));
+    *(head -> name) = *(head -> pass) = '\0';
     head -> post_cnt = 0;
-    head -> next = head -> prev = NULL;
+    head -> next = NULL;
+    head -> prev = NULL;
     return head;
 }
 
 void clear_user_linked_list(user *head){
-    user *nxt;
-    for(; head != NULL; head = nxt){
-        nxt = head -> next;
+    user *temp_usr;
+    temp_usr = head;
+    for(; head != NULL; head = temp_usr){
+        temp_usr = head -> next;
         free(head -> name);
         free(head -> pass);
         free(head);
