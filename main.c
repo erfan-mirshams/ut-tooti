@@ -47,6 +47,14 @@ int process(char **words, int sz){
             cur_user = temp_usr;
             printf("Login to user %s successful.\n", cur_user -> name);
             break;
+        case 2:
+            if(cur_user == user_head){
+                printf("error: You are not logged in as a user!\n");
+                return TRUE;
+            }
+            cur_user = user_head;
+            printf("Logout successful.\n");
+            break;
         case 8:
             printf("Exit command successful.\n");
             return FALSE;
