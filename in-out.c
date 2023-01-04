@@ -1,7 +1,5 @@
 #include "general.h"
 #include "in-out.h"
-#include <ctype.h>
-#include <stdlib.h>
 
 char *read_line_from_file(FILE *input){
     int line_length = 0;
