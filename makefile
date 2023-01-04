@@ -10,6 +10,8 @@ in-out.o: in-out.c
 	gcc -c in-out.c
 struct.o: struct.c
 	gcc -c struct.c
+user.o: user.c
+	gcc -c user.c
 main.o: main.c
 	gcc -c main.c
 clean:
