@@ -63,7 +63,7 @@ char **split_words(char *input){
 /* returns size of char** */
 int words_size(char **words) {
   int i;
-  for (i = 0; words++ != NULL; i++)
+  for (i = 0; *(words++) != NULL; i++)
     ;
   return i;
 }
