@@ -17,3 +17,10 @@ struct post {
     post *next;
     post *prev;
 };
+
+struct like {
+    int user_id;
+    int post_id;
+    like *next;
+    like *prev;
+};
