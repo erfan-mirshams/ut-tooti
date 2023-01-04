@@ -6,5 +6,5 @@
 #define TRUE 1
 #define FALSE 0
 #define COMMAND_CNT 8
-int string_fill(char *a, char *b);
+char *string_fill(char *b);
 #endif //GENERAL_H_

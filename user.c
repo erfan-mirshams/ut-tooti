@@ -27,8 +27,8 @@ int signup(user *head, int *id, char *name, char *pass){
     (*id)++;
     user *nusr = (user *)malloc(sizeof(user));
     nusr -> id = *id;
-    string_fill(nusr -> name, name);
-    string_fill(nusr -> pass, pass);
+    nusr -> name = string_fill(name);
+    nusr -> pass = string_fill(pass);
     nusr -> post_cnt = 0;
     nusr -> prev = head;
     nusr -> next = head -> next;
