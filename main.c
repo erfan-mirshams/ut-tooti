@@ -4,8 +4,10 @@
 
 int main(){
     char *ch = read_line();
-    char **ptr = split_words(ch);
-    for(; *ptr != NULL; ptr++){
+    char **words = split_words(ch), **ptr;
+    for(ptr = words; *ptr != NULL; ptr++){
         printf("%s\n", *ptr);
     }
+    free(words);
+    free(ch);
 }

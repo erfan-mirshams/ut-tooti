@@ -22,6 +22,11 @@ char *read_line_from_file(FILE *input){
           return line;
           break;
         case '\r':
+          temp_char = getc(input);
+          if(temp_char != '\n'){
+            ungetc(temp_char, input);
+          }
+          return line;
           break;
         default:
           line_length++;
