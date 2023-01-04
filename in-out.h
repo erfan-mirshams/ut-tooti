@@ -6,4 +6,5 @@
 
 char *read_line_from_file(FILE *input);
 char **split_words(char *input);
+int words_size(char **words);
 #endif //INOUT_H_

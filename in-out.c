@@ -37,7 +37,7 @@ char *read_line_from_file(FILE *input){
     return line;
 }
 
-/*splits a line input into words. seperates words by whitespace*/
+/* splits a line input into words. seperates words by whitespace*/
 char **split_words(char *input){
     char **res = (char **)malloc(sizeof(char*));
     int i;
@@ -58,4 +58,12 @@ char **split_words(char *input){
         *(input++) = '\0';
     }
     return res;
+}
+
+/* returns size of char** */
+int words_size(char **words) {
+  int i;
+  for (i = 0; words++ != NULL; i++)
+    ;
+  return i;
 }
