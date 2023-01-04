@@ -1,11 +1,9 @@
 #include "general.h"
-#include "user.h"
-#include "general.h"
 #include "struct.h"
 #include "user.h"
 
 int find_by_user_name(user *head,char *name){
-    for(; head != NULL; head = head -> next){
+    for(head = head -> next; head != NULL; head = head -> next){
         if(!strcmp(head  -> name, name)){
             return head -> id;
         }
@@ -14,7 +12,7 @@ int find_by_user_name(user *head,char *name){
 }
 
 user *login(user *head, char *name, char *pass){
-    for(; head != NULL; head = head -> next){
+    for(head = head -> next; head != NULL; head = head -> next){
         if(!strcmp(head -> name, name) && !strcmp(head -> pass, pass)){
             return head;
         }
@@ -23,14 +21,14 @@ user *login(user *head, char *name, char *pass){
 }
 
 int signup(user *head, int *id, char *name, char *pass){
-    if(!find_by_user_name(head, name)) {
+    if(find_by_user_name(head, name)) {
         return FALSE;
     }
     (*id)++;
     user *nusr = (user *)malloc(sizeof(user));
     nusr -> id = *id;
-    nusr -> name = name;
-    nusr -> pass = pass;
+    string_fill(nusr -> name, name);
+    string_fill(nusr -> pass, pass);
     nusr -> post_cnt = 0;
     nusr -> prev = head;
     nusr -> next = head -> next;
@@ -45,4 +43,14 @@ user *initialize_user_linked_list(){
     head -> post_cnt = 0;
     head -> next = head -> prev = NULL;
     return head;
+}
+
+void clear_user_linked_list(user *head){
+    user *nxt;
+    for(; head != NULL; head = nxt){
+        nxt = head -> next;
+        free(head -> name);
+        free(head -> pass);
+        free(head);
+    }
 }
