@@ -48,7 +48,7 @@ int process(char **words, int sz){
             printf("Login to user %s successful.\n", cur_user -> name);
             break;
         case 2:
-            if(cur_user == user_head){
+            if(!(cur_user -> id)){
                 printf("error: You are not logged in as a user!\n");
                 return TRUE;
             }
@@ -67,7 +67,6 @@ int process(char **words, int sz){
 
 int main(){
     char *cmd, **words;
-    user *cur_user;
     int words_sz;
     user_head = cur_user = initialize_user_linked_list();
     user_id_cnt = 0;
