@@ -4,7 +4,7 @@
 # @file
 # @version 0.1
 
-SRC = in-out.c user.c main.c general.c
+SRC = in-out.c user.c main.c general.c post.c
 OBJ = ${SRC:.c=.o}
 CFLAGS = -Wall -Wextra -fsanitize=address
 
