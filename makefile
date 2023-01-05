@@ -6,7 +6,7 @@
 
 SRC = in-out.c user.c main.c general.c post.c like.c
 OBJ = ${SRC:.c=.o}
-CFLAGS = -Wall -Wextra -fsanitize=address
+CFLAGS = -Wall -Wextra #-fsanitize=address
 
 ut-tooti: ${OBJ}
 	gcc ${CFLAGS} ${OBJ} -o $@
