@@ -16,6 +16,15 @@ void read_command(char **ch, char ***words){
     *words = split_words(*ch);
 }
 
+void write_posts(post **posts){
+    for(; *posts != NULL; posts++){
+        printf("\n");
+        printf("Id: %d\n", (*posts) -> id);
+        printf("Content:\n%s\n", (*posts) -> content);
+        printf("Like Count: %d\n", (*posts) -> like_cnt);
+    }
+}
+
 /* processes the command */
 int process(char **words, int sz){
     char *command_names[] = {"signup", "login", "logout", "find_user", "post", "delete", "info", "like", "exit"};
@@ -29,6 +38,9 @@ int process(char **words, int sz){
         }
     }
 
+    user *temp_usr;
+    int x_id;
+    post **temp_posts;
     /* if invalid command name or number of arguments */
     switch (command_id) {
         case 0:
@@ -40,7 +52,6 @@ int process(char **words, int sz){
             printf("Signup successful. User %s created.\n", cur_user -> name);
             break;
         case 1:
-            user *temp_usr;
             temp_usr = login(user_head, words[1], words[2]);
             if(temp_usr == NULL){
                 printf("error: unsuccessful login!\n");
@@ -57,6 +68,18 @@ int process(char **words, int sz){
             cur_user = user_head;
             printf("Logout successful.\n");
             break;
+        case 3:
+            x_id = find_by_user_name(user_head, words[1]);
+            if(x_id == 0){
+                printf("error: User does not exist!\n");
+                return TRUE;
+            }
+            temp_posts = find_posts_from_user(post_head, x_id);
+            printf("Username: %s\n", words[1]);
+            printf("Posts:\n");
+            write_posts(temp_posts);
+            free(temp_posts);
+            break;
         case 4:
             if(!(cur_user -> id)){
                 printf("error: You can't post when you are not logged in!\n");
@@ -64,6 +87,7 @@ int process(char **words, int sz){
             }
             post* npost = create_new_post(post_head, &post_id_cnt, cur_user -> id, words[1]);
             CHECK_MAL(npost);
+            cur_user -> post_cnt++;
             printf("Post successful.\n");
             break;
         case 8:
