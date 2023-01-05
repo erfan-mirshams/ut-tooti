@@ -37,7 +37,7 @@ char *read_line_from_file(FILE *input){
     return line;
 }
 
-/* splits a line input into words. seperates words by whitespace*/
+/* splits a line input into words. seperates words by whitespace if the first word is post won't split next words */
 char **split_words(char *input){
     char **res = (char **)malloc(sizeof(char*));
     int i;
@@ -48,8 +48,13 @@ char **split_words(char *input){
             input++;
         }
         char *cur = input;
-        while (isgraph(*(input))) {
+        int post_flag = (i == 1 ? !strcmp(*res, "post") : FALSE);
+        while (isgraph(*(input)) || (post_flag && *input != '\0')) {
             input++;
+        }
+        /*trim whitespace from end of the line*/
+        if(cur == input){
+            break;
         }
         res[i] = cur;
         if(*input == '\0'){
