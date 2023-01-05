@@ -17,6 +17,7 @@ void read_command(char **ch, char ***words){
     *words = split_words(*ch);
 }
 
+/* prints the posts in a desirable format */
 void write_posts(post **posts){
     for(; *posts != NULL; posts++){
         printf("\n");
@@ -39,13 +40,14 @@ int process(char **words, int sz){
         }
     }
 
+    /* temporary variables */
     user *temp_usr;
     int x_id;
     int y_id;
     post **temp_posts;
-    /* if invalid command name or number of arguments */
     switch (command_id) {
         case 0:
+            /* repeated username */
             if(!signup(user_head, &user_id_cnt, words[1], words[2])){
                 printf("error: This username is taken!\n");
                 return TRUE;
@@ -55,6 +57,7 @@ int process(char **words, int sz){
             break;
         case 1:
             temp_usr = login(user_head, words[1], words[2]);
+            /* wrong username or password */
             if(temp_usr == NULL){
                 printf("error: unsuccessful login!\n");
                 return TRUE;
@@ -76,6 +79,7 @@ int process(char **words, int sz){
                 printf("error: User does not exist!\n");
                 return TRUE;
             }
+            /* retrieve posts and print them */
             temp_posts = find_posts_from_user(post_head, x_id);
             printf("Username: %s\n", words[1]);
             printf("Posts:\n");
@@ -93,6 +97,7 @@ int process(char **words, int sz){
             printf("Post successful.\n");
             break;
         case 5:
+            /* check whether the second word is a positive integer */
             if(!is_pos_int(words[1]) || !atoi(words[1])){
                 printf("error: Post ID must be a positive integer!\n");
                 return TRUE;
@@ -116,6 +121,7 @@ int process(char **words, int sz){
                 printf("error: You're not logged in as a user!\n");
                 return TRUE;
             }
+            /* retrieve current user's info */
             printf("Username: %s\n", cur_user -> name);
             printf("Password: %s\n", cur_user -> pass);
             printf("Number of posts: %d\n", cur_user -> post_cnt);
@@ -124,6 +130,7 @@ int process(char **words, int sz){
             free(temp_posts);
             break;
         case 7:
+            /* whether the second word is a positive integer */
             if(!is_pos_int(words[2]) || !atoi(words[2])){
                 printf("error: Post ID must be a positive integer!\n");
                 return TRUE;
@@ -150,9 +157,11 @@ int process(char **words, int sz){
             printf("Like successful.\n");
             break;
         case 8:
+            /* returns false condition so the while in main would break */
             printf("Exit command successful.\n");
             return FALSE;
         case 9:
+            /* check for positive int */
             if(!is_pos_int(words[2]) || !atoi(words[2])){
                 printf("error: Post ID must be a positive integer!\n");
                 return TRUE;
@@ -164,7 +173,7 @@ int process(char **words, int sz){
                 return TRUE;
             }
             if(!(cur_user -> id)){
-                printf("error: You can't like posts when you'r not logged in!\n");
+                printf("error: You can't unlike posts when you'r not logged in!\n");
                 return TRUE;
             }
             if(!is_post_from_user(post_head, y_id, x_id)){
@@ -178,6 +187,7 @@ int process(char **words, int sz){
             add_post_like_cnt(post_head, y_id, -1);
             printf("Unlike successful.\n");
             break;
+        /* invalid command */
         default:
             printf("error: Invalid command name or wrong number of arguments!\n");
             return TRUE;
@@ -206,6 +216,7 @@ int main(){
         free(words);
         free(cmd);
     }
+    /* free all allocated memory */
     clear_post_linked_list(post_head);
     clear_user_linked_list(user_head);
     clear_like_linked_list(like_head);

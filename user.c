@@ -2,6 +2,7 @@
 #include "struct.h"
 #include "user.h"
 
+/* returns the id of a certain username. returns zero if not found */
 int find_by_user_name(user *head,char *name){
     for(head = head -> next; head != NULL; head = head -> next){
         if(!strcmp(head  -> name, name)){
@@ -11,6 +12,7 @@ int find_by_user_name(user *head,char *name){
     return 0;
 }
 
+/* returns the user node in case of a valid login */
 user *login(user *head, char *name, char *pass){
     for(head = head -> next; head != NULL; head = head -> next){
         if(!strcmp(head -> name, name) && !strcmp(head -> pass, pass)){
@@ -20,6 +22,7 @@ user *login(user *head, char *name, char *pass){
     return NULL;
 }
 
+/* checks for conflicts the creates a new user and inserts it next to the head of the linked list */
 int signup(user *head, int *id, char *name, char *pass){
     if(find_by_user_name(head, name)) {
         return FALSE;
@@ -36,6 +39,7 @@ int signup(user *head, int *id, char *name, char *pass){
     return TRUE;
 }
 
+/* creates new head and returns it */
 user *initialize_user_linked_list(){
     user *head = (user *)malloc(sizeof(user));
     CHECK_MAL(head);
@@ -50,6 +54,7 @@ user *initialize_user_linked_list(){
     return head;
 }
 
+/* clears user linked list and deallocates their nodes and the strings within */
 void clear_user_linked_list(user *head){
     user *temp_usr;
     for(; head != NULL; head = temp_usr){

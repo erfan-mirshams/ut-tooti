@@ -1,6 +1,7 @@
 #include "general.h"
 #include "in-out.h"
 
+/* reads a single line of string from input. suits to different end of line conventions in different OSes */
 char *read_line_from_file(FILE *input){
     int line_length = 0;
     char *line = (char *)malloc(sizeof(char));
@@ -8,6 +9,7 @@ char *read_line_from_file(FILE *input){
     *(line) = '\0';
 
     char temp_char = '\0';
+    /* reads the next character */
     while (TRUE) {
         if(line_length == MAXN){
             return NULL;
@@ -21,6 +23,7 @@ char *read_line_from_file(FILE *input){
           return line;
           break;
         case '\r':
+          /* for Mac and Windows systems */
           temp_char = getc(input);
           if(temp_char != '\n'){
             ungetc(temp_char, input);
@@ -46,11 +49,13 @@ char **split_words(char *input){
     *res = NULL;
     int i;
     for(i = 0; ; i++){
+        /* remove whitespace before word */
         while (isspace(*(input))) {
             input++;
         }
         char *cur = input;
         int post_flag = (i == 1 ? !strcmp(*res, "post") : FALSE);
+        /* read graphical characters with the exception of when the first word is post */
         while (isgraph(*(input)) || (post_flag && *input != '\0')) {
             input++;
         }
@@ -58,6 +63,7 @@ char **split_words(char *input){
         if(cur == input){
             break;
         }
+        /* add to the pile of words */
         res = (char **)realloc(res, sizeof(char *) * (i + 2));
         CHECK_MAL(res);
         res[i + 1] = NULL;

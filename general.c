@@ -1,13 +1,14 @@
 #include "general.h"
 #include <stdio.h>
 
-/* fills string a with b */
+/* dublicates string b with different allocated memory */
 char *string_fill(char *b){
     char *a;
     int sz = strlen(b) + 1;
     a = (char *)malloc(sizeof(char) * sz);
     CHECK_MAL(a);
     int i;
+    /* pours b into a */
     for(i = 0; i < sz; i++){
         a[i] = b[i];
     }
