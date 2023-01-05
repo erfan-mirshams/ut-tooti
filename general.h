@@ -5,7 +5,7 @@
 #include <string.h>
 #define TRUE 1
 #define FALSE 0
-#define COMMAND_CNT 9
+#define COMMAND_CNT 10
 #define CHECK_MAL(ptr) if((ptr) == NULL)mal_fail()
 char *string_fill(char *b);
 int is_pos_int(char *ch);

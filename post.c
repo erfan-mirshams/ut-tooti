@@ -50,10 +50,10 @@ int is_valid_post(post *head, int id){
     return FALSE;
 }
 
-int add_post_like_cnt(post *head, int id){
+int add_post_like_cnt(post *head, int id, int val){
     for(head = head -> next; head != NULL; head = head -> next){
         if(head -> id == id){
-            (head -> like_cnt)++;
+            (head -> like_cnt) += val;
             return TRUE;
         }
     }

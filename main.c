@@ -28,8 +28,8 @@ void write_posts(post **posts){
 
 /* processes the command */
 int process(char **words, int sz){
-    char *command_names[] = {"signup", "login", "logout", "find_user", "post", "delete", "info", "like", "exit"};
-    int command_input_size[] = {3, 3, 1, 2, 2, 2, 1, 3, 1};
+    char *command_names[] = {"signup", "login", "logout", "find_user", "post", "delete", "info", "like", "exit", "unlike"};
+    int command_input_size[] = {3, 3, 1, 2, 2, 2, 1, 3, 1, 3};
     int command_id = -1, i;
     for(i = 0; i < COMMAND_CNT; i++){
         /* if the command is valid */
@@ -146,12 +146,38 @@ int process(char **words, int sz){
                 printf("error: You've already liked this post!\n");
                 return TRUE;
             }
-            add_post_like_cnt(post_head, y_id);
+            add_post_like_cnt(post_head, y_id, 1);
             printf("Like successful.\n");
             break;
         case 8:
             printf("Exit command successful.\n");
             return FALSE;
+        case 9:
+            if(!is_pos_int(words[2]) || !atoi(words[2])){
+                printf("error: Post ID must be a positive integer!\n");
+                return TRUE;
+            }
+            y_id = atoi(words[2]);
+            x_id = find_by_user_name(user_head, words[1]);
+            if(!x_id){
+                printf("error: User %s does not exist!\n", words[1]);
+                return TRUE;
+            }
+            if(!(cur_user -> id)){
+                printf("error: You can't like posts when you'r not logged in!\n");
+                return TRUE;
+            }
+            if(!is_post_from_user(post_head, y_id, x_id)){
+                printf("error: User %s does not have a post with the id %d!\n", words[1], y_id);
+                return TRUE;
+            }
+            if(!delete_like(like_head, find_like(like_head, cur_user -> id, y_id))){
+                printf("error: You have not liked this post!\n");
+                return TRUE;
+            }
+            add_post_like_cnt(post_head, y_id, -1);
+            printf("Unlike successful.\n");
+            break;
         default:
             printf("error: Invalid command name or wrong number of arguments!\n");
             return TRUE;
