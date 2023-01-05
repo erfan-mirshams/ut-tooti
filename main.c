@@ -3,12 +3,13 @@
 #include "struct.h"
 #include "user.h"
 #include "post.h"
-
+#include "like.h"
 
 /* static variables */
 static user *user_head, *cur_user;
-static int user_id_cnt, post_id_cnt;
+static int user_id_cnt, post_id_cnt, like_id_cnt;
 static post *post_head;
+static like *like_head;
 
 /* reads a line into ch and splits the words into words */
 void read_command(char **ch, char ***words){
@@ -117,7 +118,8 @@ int main(){
     int words_sz;
     user_head = cur_user = initialize_user_linked_list();
     post_head = initialize_post_linked_list();
-    post_id_cnt = user_id_cnt = 0;
+    like_head = initialize_like_linked_list();
+    like_id_cnt = post_id_cnt = user_id_cnt = 0;
     int condition = TRUE; /* loop condition */
     while(condition){
         printf("DEBUG:\n");
@@ -136,4 +138,5 @@ int main(){
     printf("FIN\n");
     clear_post_linked_list(post_head);
     clear_user_linked_list(user_head);
+    clear_like_linked_list(like_head);
 }

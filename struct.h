@@ -21,6 +21,7 @@ struct post {
 };
 
 struct like {
+    int id;
     int user_id;
     int post_id;
     like *next;
