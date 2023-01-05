@@ -30,7 +30,6 @@ int signup(user *head, int *id, char *name, char *pass){
     nusr -> name = string_fill(name);
     nusr -> pass = string_fill(pass);
     nusr -> post_cnt = 0;
-    nusr -> prev = head;
     nusr -> next = head -> next;
     head -> next = nusr;
     return TRUE;
@@ -44,13 +43,11 @@ user *initialize_user_linked_list(){
     *(head -> name) = *(head -> pass) = '\0';
     head -> post_cnt = 0;
     head -> next = NULL;
-    head -> prev = NULL;
     return head;
 }
 
 void clear_user_linked_list(user *head){
     user *temp_usr;
-    temp_usr = head;
     for(; head != NULL; head = temp_usr){
         temp_usr = head -> next;
         free(head -> name);

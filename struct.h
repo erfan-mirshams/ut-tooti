@@ -10,7 +10,6 @@ struct user {
     char *pass;
     int post_cnt;
     user *next;
-    user *prev;
 };
 
 struct post {
@@ -19,13 +18,11 @@ struct post {
     int like_cnt;
     char *content;
     post *next;
-    post *prev;
 };
 
 struct like {
     int user_id;
     int post_id;
     like *next;
-    like *prev;
 };
 #endif //STRUCT_H_
