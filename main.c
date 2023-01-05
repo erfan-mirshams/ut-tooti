@@ -90,6 +90,18 @@ int process(char **words, int sz){
             cur_user -> post_cnt++;
             printf("Post successful.\n");
             break;
+        case 6:
+            if(!(cur_user -> id)){
+                printf("error: You're not logged in as a user!\n");
+                return TRUE;
+            }
+            printf("Username: %s\n", cur_user -> name);
+            printf("Password: %s\n", cur_user -> pass);
+            printf("Number of posts: %d\n", cur_user -> post_cnt);
+            temp_posts = find_posts_from_user(post_head, cur_user -> id);
+            write_posts(temp_posts);
+            free(temp_posts);
+            break;
         case 8:
             printf("Exit command successful.\n");
             return FALSE;
