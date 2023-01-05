@@ -155,6 +155,8 @@ int main(){
         words_sz = words_size(words);
         /* empty line */
         if(!words_sz){
+            free(words);
+            free(cmd);
             continue;
         }
         printf("WORDSZ: %d\n", words_sz);

@@ -43,11 +43,9 @@ char *read_line_from_file(FILE *input){
 char **split_words(char *input){
     char **res = (char **)malloc(sizeof(char*));
     CHECK_MAL(res);
+    *res = NULL;
     int i;
     for(i = 0; ; i++){
-        res = (char **)realloc(res, sizeof(char *) * (i + 2));
-        CHECK_MAL(res);
-        res[i + 1] = NULL;
         while (isspace(*(input))) {
             input++;
         }
@@ -60,6 +58,9 @@ char **split_words(char *input){
         if(cur == input){
             break;
         }
+        res = (char **)realloc(res, sizeof(char *) * (i + 2));
+        CHECK_MAL(res);
+        res[i + 1] = NULL;
         res[i] = cur;
         if(*input == '\0'){
             break;
