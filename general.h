@@ -7,4 +7,5 @@
 #define FALSE 0
 #define COMMAND_CNT 9
 char *string_fill(char *b);
+void mal_fail();
 #endif //GENERAL_H_

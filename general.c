@@ -1,4 +1,5 @@
 #include "general.h"
+#include <stdio.h>
 
 /* fills string a with b */
 char *string_fill(char *b){
@@ -13,4 +14,10 @@ char *string_fill(char *b){
         a[i] = b[i];
     }
     return a;
+}
+
+/* abort when malloc fails */
+void mal_fail(){
+    printf("error: Memory Allocation Failed!\n");
+    exit(EXIT_FAILURE);
 }
