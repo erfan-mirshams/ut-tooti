@@ -5,9 +5,7 @@
 post *create_new_post(post *head, int *id, int user_id, char *content){
     (*id)++;
     post *npost = (post *)malloc(sizeof(post));
-    if(npost == NULL){
-        return NULL;
-    }
+    CHECK_MAL(npost);
     npost -> id = *id;
     npost -> user_id = user_id;
     npost -> like_cnt = 0;
@@ -19,10 +17,12 @@ post *create_new_post(post *head, int *id, int user_id, char *content){
 
 post *initialize_post_linked_list(){
     post *head = (post *)malloc(sizeof(post));
+    CHECK_MAL(head);
     head -> id = 0;
     head -> user_id = 0;
     head -> like_cnt = 0;
     head -> content = (char *)malloc(sizeof(char));
+    CHECK_MAL(head -> content);
     *(head -> content) = '\0';
     head -> next = NULL;
     return head;

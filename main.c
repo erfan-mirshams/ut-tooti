@@ -63,9 +63,7 @@ int process(char **words, int sz){
                 return TRUE;
             }
             post* npost = create_new_post(post_head, &post_id_cnt, cur_user -> id, words[1]);
-            if(npost == NULL){
-                mal_fail();
-            }
+            CHECK_MAL(npost);
             printf("Post successful.\n");
             break;
         case 8:

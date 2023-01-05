@@ -26,6 +26,7 @@ int signup(user *head, int *id, char *name, char *pass){
     }
     (*id)++;
     user *nusr = (user *)malloc(sizeof(user));
+    CHECK_MAL(nusr);
     nusr -> id = *id;
     nusr -> name = string_fill(name);
     nusr -> pass = string_fill(pass);
@@ -37,9 +38,12 @@ int signup(user *head, int *id, char *name, char *pass){
 
 user *initialize_user_linked_list(){
     user *head = (user *)malloc(sizeof(user));
+    CHECK_MAL(head);
     head -> id = 0;
     head -> name = (char *)malloc(sizeof(char));
+    CHECK_MAL(head -> name);
     head -> pass = (char *)malloc(sizeof(char));
+    CHECK_MAL(head -> pass);
     *(head -> name) = *(head -> pass) = '\0';
     head -> post_cnt = 0;
     head -> next = NULL;

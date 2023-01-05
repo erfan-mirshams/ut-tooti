@@ -4,6 +4,7 @@
 char *read_line_from_file(FILE *input){
     int line_length = 0;
     char *line = (char *)malloc(sizeof(char));
+    CHECK_MAL(line);
     *(line) = '\0';
 
     char temp_char = '\0';
@@ -29,6 +30,7 @@ char *read_line_from_file(FILE *input){
         default:
           line_length++;
           line = (char *)realloc(line, sizeof(char) * (line_length + 1));
+          CHECK_MAL(line);
           line[line_length] = '\0';
           line[line_length - 1] = temp_char;
           break;
@@ -40,9 +42,11 @@ char *read_line_from_file(FILE *input){
 /* splits a line input into words. seperates words by whitespace if the first word is post won't split next words */
 char **split_words(char *input){
     char **res = (char **)malloc(sizeof(char*));
+    CHECK_MAL(res);
     int i;
     for(i = 0; ; i++){
         res = (char **)realloc(res, sizeof(char *) * (i + 2));
+        CHECK_MAL(res);
         res[i + 1] = NULL;
         while (isspace(*(input))) {
             input++;
