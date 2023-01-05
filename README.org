@@ -3,4 +3,68 @@
 * UT-tooti
 
 ** Intro
-A primitive program where users can signup and post.
+A primitive program where users can signup and post. Additional White space in input is acceptable. This program currently does not utilize files so all data will be lost after exitting.
+Caution: strings with length more than 300 are not acceptable
+** Commands
+*** Signup
+Creates a new user and logs into his/her account.
+format:
+#+begin_src
+signup <username> <password>
+#+end_src
+*** Login
+Logs into one of the existing users.
+format:
+#+begin_src
+login <username> <password>
+#+end_src
+*** Logout
+Logs out from existing user.
+format:
+#+begin_src
+logout
+#+end_src
+*** Find User
+Finds user and outputs his/her username alongside his/her posts and their like count.
+format:
+#+begin_src
+find_user <username>
+#+end_src
+*** Post
+Post from current logged in user. the post content can include whitespace.
+format:
+#+begin_src
+post <content>
+#+end_src
+*** Delete
+Deletes post with certain id. A user can't delete other's posts.
+format:
+#+begin_src
+delete <post-id>
+#+end_src
+*** Info
+Outputs info about current logged in user.
+format:
+#+begin_src
+info
+#+end_src
+*** Like
+Like certain post based on username and post id by the current logged in user.
+format:
+#+begin_src
+like <username> <post-id>
+#+end_src
+*** Unlike
+Remove the like from a certain post by the current logged in user.
+format:
+#+begin_src
+unlike <username> <post-id>
+#+end_src
+*** Exit
+Exits the program
+format:
+#+begin_src
+exit
+#+end_src
+** Installation
+Suitable makefile is included. Clone this repo and run make in it's directory. GCC is needed.
