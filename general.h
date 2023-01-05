@@ -8,5 +8,6 @@
 #define COMMAND_CNT 9
 #define CHECK_MAL(ptr) if((ptr) == NULL)mal_fail()
 char *string_fill(char *b);
+int is_pos_int(char *ch);
 void mal_fail();
 #endif //GENERAL_H_

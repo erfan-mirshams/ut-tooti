@@ -19,6 +19,34 @@ post **find_posts_from_user(post *head, int user_id){
     return posts;
 }
 
+int is_post_from_user(post *head, int id, int user_id){
+    for(head = head -> next; head != NULL; head = head -> next){
+        if(head -> id == id && head -> user_id == user_id){
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+int is_valid_post(post *head, int id){
+    for(head = head -> next; head != NULL; head = head -> next){
+        if(head -> id == id){
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+int add_post_like_cnt(post *head, int id){
+    for(head = head -> next; head != NULL; head = head -> next){
+        if(head -> id == id){
+            (head -> like_cnt)++;
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
 post *create_new_post(post *head, int *id, int user_id, char *content){
     (*id)++;
     post *npost = (post *)malloc(sizeof(post));

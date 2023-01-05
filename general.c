@@ -14,6 +14,17 @@ char *string_fill(char *b){
     return a;
 }
 
+/* checks whether ch can be cast to an integer */
+int is_pos_int(char *ch){
+    char c;
+    while((c = *(ch++))){
+        if(!isdigit(c)){
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
+
 /* abort when malloc fails */
 void mal_fail(){
     printf("error: Memory Allocation Failed!\n");
