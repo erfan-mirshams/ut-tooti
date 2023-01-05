@@ -5,4 +5,5 @@ void clear_like_linked_list(like *head);
 int find_like(like *head, int user_id, int post_id);
 int new_like(like *head, int *id, int user_id, int post_id);
 int delete_like(like *head, int id);
+int delete_by_post_id(like *head, int post_id);
 #endif // LIKE_H_

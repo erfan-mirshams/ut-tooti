@@ -92,6 +92,25 @@ int process(char **words, int sz){
             cur_user -> post_cnt++;
             printf("Post successful.\n");
             break;
+        case 5:
+            if(!is_pos_int(words[1]) || !atoi(words[1])){
+                printf("error: Post ID must be a positive integer!\n");
+                return TRUE;
+            }
+            y_id = atoi(words[1]);
+            if(!(cur_user -> id)){
+                printf("error: You can't delete posts when you are not logged in!\n");
+                return TRUE;
+            }
+            if(!is_post_from_user(post_head, y_id, cur_user -> id)){
+                printf("error: You don't have a post with id %d\n", y_id);
+                return TRUE;
+            }
+            delete_by_post_id(like_head, y_id);
+            delete_post(post_head, y_id);
+            printf("Post was deleted succesfully.\n");
+            (cur_user -> post_cnt)--;
+            break;
         case 6:
             if(!(cur_user -> id)){
                 printf("error: You're not logged in as a user!\n");
@@ -149,9 +168,7 @@ int main(){
     like_id_cnt = post_id_cnt = user_id_cnt = 0;
     int condition = TRUE; /* loop condition */
     while(condition){
-        printf("DEBUG:\n");
         read_command(&cmd, &words);
-        printf("VALLA\n");
         words_sz = words_size(words);
         /* empty line */
         if(!words_sz){
@@ -159,12 +176,10 @@ int main(){
             free(cmd);
             continue;
         }
-        printf("WORDSZ: %d\n", words_sz);
         condition = process(words, words_sz);
         free(words);
         free(cmd);
     }
-    printf("FIN\n");
     clear_post_linked_list(post_head);
     clear_user_linked_list(user_head);
     clear_like_linked_list(like_head);

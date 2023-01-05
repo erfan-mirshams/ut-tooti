@@ -2,6 +2,19 @@
 #include "struct.h"
 #include "post.h"
 
+int delete_post(post *head, int id){
+    post *prev = head;
+    for(head = head -> next; head != NULL; head = head -> next){
+        if(head -> id == id){
+            prev -> next = head -> next;
+            free(head -> content);
+            free(head);
+            return TRUE;
+        }
+        prev = head;
+    }
+    return FALSE;
+}
 
 post **find_posts_from_user(post *head, int user_id){
     post **posts = (post **)malloc(sizeof(post*));
