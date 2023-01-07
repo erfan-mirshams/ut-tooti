@@ -2,9 +2,9 @@
 * UT-tooti
 
 ** Intro
-A primitive program where users can signup and post. \
-Additional White space in input is acceptable. \
-This programs uses textfiles as an illusion of a database. Do not manually edit files *user.txt*, *post.txt* and *like.txt* or you'll get unidentified behaviour. \
+A primitive program where users can signup and post.
+Additional White space in input is acceptable.
+This programs uses textfiles as an illusion of a database. Do not manually edit files *user.txt*, *post.txt* and *like.txt* or you'll get unidentified behaviour.
 Caution: strings with length more than 300 are not acceptable
 ** Commands
 *** Signup
