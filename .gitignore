@@ -5,3 +5,6 @@ tmp/
 *.out
 *.o
 /ut-tooti
+/like.txt
+/post.txt
+/user.txt
