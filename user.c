@@ -64,3 +64,15 @@ void clear_user_linked_list(user *head){
         free(head);
     }
 }
+
+int store_user_linked_list(user *head){
+    FILE *db = fopen(USER_FILE, "w+");
+    if(db == NULL){
+        return FALSE;
+    }
+    for(head = head -> next; head != NULL; head = head -> next){
+        fprintf(db, "%d %s %s %d\n", head -> id, head -> name, head -> pass, head -> post_cnt);
+    }
+    fclose(db);
+    return TRUE;
+}

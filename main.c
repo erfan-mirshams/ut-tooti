@@ -216,6 +216,10 @@ int main(){
         free(words);
         free(cmd);
     }
+    /* store gathered data */
+    store_user_linked_list(user_head);
+    store_post_linked_list(post_head);
+    store_like_linked_list(like_head);
     /* free all allocated memory */
     clear_post_linked_list(post_head);
     clear_user_linked_list(user_head);

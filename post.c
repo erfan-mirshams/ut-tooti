@@ -103,3 +103,15 @@ void clear_post_linked_list(post *head){
         free(head);
     }
 }
+
+int store_post_linked_list(post *head){
+    FILE *db = fopen(POST_FILE, "w+");
+    if(db == NULL){
+        return FALSE;
+    }
+    for(head = head -> next; head != NULL; head = head -> next){
+        fprintf(db, "%d %d %d %s\n", head -> id, head -> user_id, head -> like_cnt, head -> content);
+    }
+    fclose(db);
+    return TRUE;
+}

@@ -78,3 +78,15 @@ void clear_like_linked_list(like *head){
         free(head);
     }
 }
+
+int store_like_linked_list(like *head){
+    FILE *db = fopen(LIKE_FILE, "w+");
+    if(db == NULL){
+        return FALSE;
+    }
+    for(head = head -> next; head != NULL; head = head -> next){
+        fprintf(db, "%d %d %d\n", head -> id, head -> user_id, head -> post_id);
+    }
+    fclose(db);
+    return TRUE;
+}

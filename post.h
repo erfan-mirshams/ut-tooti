@@ -1,6 +1,6 @@
 #ifndef POST_H_
 #define POST_H_
-#define POSTFILE "post.txt"
+#define POST_FILE "post.txt"
 #include <stdio.h>
 post *initialize_post_linked_list();
 void clear_post_linked_list(post *head);
@@ -10,4 +10,5 @@ int is_valid_post(post *head, int id);
 int is_post_from_user(post *head, int id, int user_id);
 int add_post_like_cnt(post *head, int id, int val);
 int delete_post(post *head, int id);
+int store_post_linked_list(post *head);
 #endif // POST_H_
