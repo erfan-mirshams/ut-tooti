@@ -60,13 +60,26 @@ int delete_like(like *head, int id){
 }
 
 /* creates a new head and returns it */
-like *initialize_like_linked_list(){
+like *initialize_like_linked_list(int *cnt){
     like* head = (like *)malloc(sizeof(like));
     CHECK_MAL(head);
     head -> id = 0;
     head -> user_id = 0;
     head -> post_id = 0;
     head -> next = NULL;
+    int id, user_id, post_id;
+    FILE *db = fopen(LIKE_FILE, "r");
+    if(db == NULL){
+        return head;
+    }
+    while(TRUE){
+        if(fscanf(db, "%d %d %d", &id, &user_id, &post_id) != 3){
+            break;
+        }
+        *cnt = MAX(*cnt, id);
+        id--;
+        new_like(head, &id, user_id, post_id);
+    }
     return head;
 }
 

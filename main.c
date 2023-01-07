@@ -4,6 +4,7 @@
 #include "user.h"
 #include "post.h"
 #include "like.h"
+#include <stdio.h>
 
 /* static variables */
 static user *user_head, *cur_user;
@@ -198,10 +199,9 @@ int process(char **words, int sz){
 int main(){
     char *cmd, **words;
     int words_sz;
-    user_head = cur_user = initialize_user_linked_list();
-    post_head = initialize_post_linked_list();
-    like_head = initialize_like_linked_list();
-    like_id_cnt = post_id_cnt = user_id_cnt = 0;
+    user_head = cur_user = initialize_user_linked_list(&user_id_cnt);
+    post_head = initialize_post_linked_list(&post_id_cnt);
+    like_head = initialize_like_linked_list(&like_id_cnt);
     int condition = TRUE; /* loop condition */
     while(condition){
         read_command(&cmd, &words);

@@ -40,10 +40,10 @@ int signup(user *head, int *id, char *name, char *pass){
 }
 
 /* creates new head and returns it */
-user *initialize_user_linked_list(){
+user *initialize_user_linked_list(int *cnt){
     user *head = (user *)malloc(sizeof(user));
     CHECK_MAL(head);
-    head -> id = 0;
+    *cnt = head -> id = 0;
     head -> name = (char *)malloc(sizeof(char));
     CHECK_MAL(head -> name);
     head -> pass = (char *)malloc(sizeof(char));
@@ -51,6 +51,29 @@ user *initialize_user_linked_list(){
     *(head -> name) = *(head -> pass) = '\0';
     head -> post_cnt = 0;
     head -> next = NULL;
+    FILE *db = fopen(USER_FILE, "r");
+    if(db == NULL){
+        return head;
+    }
+    char *name, *pass;
+    int id, post_cnt;
+    name = (char *)malloc(sizeof(char) * MAXN);
+    CHECK_MAL(name);
+    pass = (char *)malloc(sizeof(char) * MAXN);
+    CHECK_MAL(pass);
+    while(TRUE){
+        if(fscanf(db, "%d %s %s %d", &id, name, pass, &post_cnt) != 4){
+            break;
+        }
+        *cnt = MAX(*cnt, id);
+        /* because signup increments id */
+        id--;
+        signup(head, &id, name, pass);
+        user *temp = login(head, name, pass);
+        temp -> post_cnt = post_cnt;
+    }
+    free(name);
+    free(pass);
     return head;
 }
 

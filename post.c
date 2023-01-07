@@ -81,16 +81,35 @@ post *create_new_post(post *head, int *id, int user_id, char *content){
 }
 
 /* creates a new head and returns it */
-post *initialize_post_linked_list(){
+post *initialize_post_linked_list(int *cnt){
     post *head = (post *)malloc(sizeof(post));
     CHECK_MAL(head);
-    head -> id = 0;
+    *cnt = head -> id = 0;
     head -> user_id = 0;
     head -> like_cnt = 0;
     head -> content = (char *)malloc(sizeof(char));
     CHECK_MAL(head -> content);
     *(head -> content) = '\0';
     head -> next = NULL;
+    FILE *db = fopen(POST_FILE, "r");
+    if(db == NULL){
+        return head;
+    }
+    char *content;
+    int id, user_id, like_cnt;
+    content = (char *)malloc(sizeof(char) * MAXN);
+    CHECK_MAL(content);
+    while(TRUE){
+        if(fscanf(db, "%d %d %d %s", &id,  &user_id, &like_cnt, content) != 4){
+            break;
+        }
+        *cnt = MAX(*cnt, id);
+        /* because create_new_post increments id */
+        id--;
+        create_new_post(head, &id, user_id, content);
+        add_post_like_cnt(head, id, like_cnt);
+    }
+    free(content);
     return head;
 }
 

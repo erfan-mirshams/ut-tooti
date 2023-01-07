@@ -2,7 +2,7 @@
 #define LIKE_H_
 #define LIKE_FILE "like.txt"
 #include <stdio.h>
-like *initialize_like_linked_list();
+like *initialize_like_linked_list(int *cnt);
 void clear_like_linked_list(like *head);
 int find_like(like *head, int user_id, int post_id);
 int new_like(like *head, int *id, int user_id, int post_id);

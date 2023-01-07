@@ -2,7 +2,7 @@
 #define POST_H_
 #define POST_FILE "post.txt"
 #include <stdio.h>
-post *initialize_post_linked_list();
+post *initialize_post_linked_list(int *cnt);
 void clear_post_linked_list(post *head);
 post *create_new_post(post *head, int *id, int user_id, char *content);
 post **find_posts_from_user(post *head, int user_id);
