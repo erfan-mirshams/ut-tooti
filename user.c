@@ -39,7 +39,7 @@ int signup(user *head, int *id, char *name, char *pass){
     return TRUE;
 }
 
-/* creates new head and returns it */
+/* creates a new head and returns it. also reads previous entries from file */
 user *initialize_user_linked_list(int *cnt){
     user *head = (user *)malloc(sizeof(user));
     CHECK_MAL(head);
@@ -88,6 +88,7 @@ void clear_user_linked_list(user *head){
     }
 }
 
+/* each linked list entry in a single line */
 int store_user_linked_list(user *head){
     FILE *db = fopen(USER_FILE, "w+");
     if(db == NULL){

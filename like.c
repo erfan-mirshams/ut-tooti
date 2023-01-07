@@ -59,7 +59,7 @@ int delete_like(like *head, int id){
     return FALSE;
 }
 
-/* creates a new head and returns it */
+/* creates a new head and returns it. also reads previous entries from file */
 like *initialize_like_linked_list(int *cnt){
     like* head = (like *)malloc(sizeof(like));
     CHECK_MAL(head);
@@ -92,6 +92,7 @@ void clear_like_linked_list(like *head){
     }
 }
 
+/* each linked list entry in a single line */
 int store_like_linked_list(like *head){
     FILE *db = fopen(LIKE_FILE, "w+");
     if(db == NULL){

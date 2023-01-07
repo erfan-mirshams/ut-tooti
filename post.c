@@ -80,7 +80,7 @@ post *create_new_post(post *head, int *id, int user_id, char *content){
     return npost;
 }
 
-/* creates a new head and returns it */
+/* creates a new head and returns it. also reads previous entries from file */
 post *initialize_post_linked_list(int *cnt){
     post *head = (post *)malloc(sizeof(post));
     CHECK_MAL(head);
@@ -123,6 +123,7 @@ void clear_post_linked_list(post *head){
     }
 }
 
+/* each linked list entry in a single line */
 int store_post_linked_list(post *head){
     FILE *db = fopen(POST_FILE, "w+");
     if(db == NULL){
