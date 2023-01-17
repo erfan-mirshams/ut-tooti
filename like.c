@@ -1,6 +1,7 @@
 #include "general.h"
 #include "struct.h"
 #include "like.h"
+#include "in-out.h"
 
 /* deletes all the likes with the given post id */
 int delete_by_post_id(like *head, int post_id){
@@ -73,12 +74,23 @@ like *initialize_like_linked_list(int *cnt){
         return head;
     }
     while(TRUE){
-        if(fscanf(db, "%d %d %d", &id, &user_id, &post_id) != 3){
+        char *line, **words;
+        line = read_line_from_file(db);
+        words = split_words(line);
+        int word_sz = words_size(words);
+        if(!word_sz){
+            free(line);
+            free(words);
             break;
         }
+        id = atoi(words[0]);
+        user_id = atoi(words[1]);
+        post_id = atoi(words[2]);
         *cnt = MAX(*cnt, id);
         id--;
         new_like(head, &id, user_id, post_id);
+        free(line);
+        free(words);
     }
     return head;
 }
