@@ -1,6 +1,7 @@
 #include "general.h"
 #include "struct.h"
 #include "post.h"
+#include "in-out.h"
 
 /* delete single post node based on id */
 int delete_post(post *head, int id){
@@ -97,19 +98,36 @@ post *initialize_post_linked_list(int *cnt){
     }
     char *content;
     int id, user_id, like_cnt;
-    content = (char *)malloc(sizeof(char) * MAXN);
-    CHECK_MAL(content);
     while(TRUE){
-        if(fscanf(db, "%d %d %d %s", &id,  &user_id, &like_cnt, content) != 4){
+        char *line, **words;
+        line = read_line_from_file(db);
+        int line_sz = strlen(line);
+        words = split_words(line);
+        int word_sz = words_size(words);
+        if(!word_sz){
+            free(line);
+            free(words);
             break;
         }
+        int i, nullcnt = 0;
+        for(i = 0; i < line_sz; i++){
+            if(line[i] =='\0' && nullcnt++ >= 3){
+                line[i] = ' ';
+            }
+        }
+        id = atoi(words[0]);
+        user_id = atoi(words[1]);
+        like_cnt = atoi(words[2]);
+        content = string_fill(words[3]);
         *cnt = MAX(*cnt, id);
         /* because create_new_post increments id */
         id--;
         create_new_post(head, &id, user_id, content);
         add_post_like_cnt(head, id, like_cnt);
+        free(line);
+        free(words);
+        free(content);
     }
-    free(content);
     return head;
 }
 

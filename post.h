@@ -1,7 +1,6 @@
 #ifndef POST_H_
 #define POST_H_
 #define POST_FILE "post.txt"
-#include <stdio.h>
 post *initialize_post_linked_list(int *cnt);
 void clear_post_linked_list(post *head);
 post *create_new_post(post *head, int *id, int user_id, char *content);
