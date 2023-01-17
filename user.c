@@ -1,5 +1,6 @@
 #include "general.h"
 #include "struct.h"
+#include "in-out.h"
 #include "user.h"
 
 /* returns the id of a certain username. returns zero if not found */
@@ -57,23 +58,31 @@ user *initialize_user_linked_list(int *cnt){
     }
     char *name, *pass;
     int id, post_cnt;
-    name = (char *)malloc(sizeof(char) * MAXN);
-    CHECK_MAL(name);
-    pass = (char *)malloc(sizeof(char) * MAXN);
-    CHECK_MAL(pass);
     while(TRUE){
-        if(fscanf(db, "%d %s %s %d", &id, name, pass, &post_cnt) != 4){
+        char *line, **words;
+        line = read_line_from_file(db);
+        words = split_words(line);
+        int word_sz = words_size(words);
+        if(!word_sz){
+            free(line);
+            free(words);
             break;
         }
+        id = atoi(words[0]);
+        name = string_fill(words[1]);
+        pass = string_fill(words[2]);
+        post_cnt = atoi(words[3]);
         *cnt = MAX(*cnt, id);
         /* because signup increments id */
         id--;
         signup(head, &id, name, pass);
         user *temp = login(head, name, pass);
         temp -> post_cnt = post_cnt;
+        free(line);
+        free(words);
+        free(name);
+        free(pass);
     }
-    free(name);
-    free(pass);
     return head;
 }
 
